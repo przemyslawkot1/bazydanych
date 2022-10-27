@@ -1,0 +1,7 @@
+1. CREATE TABLE postac (id_postaci INTEGER PRIMARY KEY NOT NULL, nazwa VARCHAR(40), rodzaj ENUM('wiking', 'ptak', 'kobieta'), data_ur DATE, wiek TINYINT);
+
+2.INSERT INTO postac VALUES ('1', 'Bjorn', 'wiking', '1350-12-22', 25); -||- drozd -||- tesciowa
+
+3. UPDATE postac SET wiek="88" WHERE id_postaci = "3";
+
+4.CREATE TABLE walizka (id_walizki INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL, pojemnosc TINYINT, kolor ENUM('rozowy' , 'czerwony', 'teczowy', 'zolty'), id_wlasciciela INTEGER FOREIGN KEY REFERENCES id_postaci(id_postaci));
