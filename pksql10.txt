@@ -1,0 +1,46 @@
+1. CREATE TABLE postac (id_postaci INTEGER PRIMARY KEY NOT NULL, nazwa VARCHAR(40), rodzaj ENUM('wiking', 'ptak', 'kobieta'), data_ur DATE, wiek TINYINT);
+
+2.INSERT INTO postac VALUES ('1', 'Bjorn', 'wiking', '1350-12-22', 25); -||- drozd -||- tesciowa
+
+3. UPDATE postac SET wiek="88" WHERE id_postaci = "3";
+
+4.CREATE TABLE walizka (id_walizki INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL, pojemnosc TINYINT, kolor ENUM('rozowy' , 'czerwony', 'teczowy', 'zolty'), id_wlasciciela INTEGER FOREIGN KEY REFERENCES id_postaci(id_postaci));
+
+Niespodzianka
+
+
+1.CREATE TABLE izba (adres_budynku INTEGER, nazwa_izby VARCHAR(40), metraz INTEGER UNSIGNED, wlasciciel INTEGER, FOREIGN KEY (wlasciciel) REFERENCES postac (id_postaci) ON DELETE NOT NULL, PRIMARY KEY (adres_budynku,nazwa_izby));
+
+ALTER TABLE izba ADD kolor_izby varchar(40) default "czarny" after metraz;
+
+INSERT INTO izba values (1,"spizarnia", 25, 1);
+
+4.
+
+CREATE TABLE przetwory (id_przetworu INTEGER PRIMARY KEY, rok_produkcji year default (1654), id_wykonawcy INTEGER, FOREIGN KEY (id_wykonawcy) REFERENCES postac(id_postaci), zawartosc VARCHAR(40), dodatek VARCHAR(40) default "papryczka chilli", id_konsumenta INTEGER, FOREIGN KEY(id_konsumenta) REFERENCES postac(id_postaci));
+
+INSERT INTO przetwory VALUES(1,null, null, "bigos z papryczka chilli", "papryczka chilli", null);
+
+5. 
+
+INSERT INTO postac VALUES (4, 'loki', 'wiking', '2002-10-15', 50);
+INSERT INTO postac VALUES (4, 'zeus', 'wiking', '2002-1-7', 50);
+INSERT INTO postac VALUES (4, 'thor', 'wiking', '2002-10-4', 50);
+INSERT INTO postac VALUES (4, 'baldur', 'wiking', '2002-12-15', 50);
+INSERT INTO postac VALUES (4, 'ragnar', 'wiking', '2002-8-25', 50);
+
+CREATE TABLE statek (id_statku INTEGER, nazwa_statku VARCHAR(100) PRIMARY KEY, rodzaj statku ENUM("prom", "jacht", "kontenerowiec", "kajak", "motorowka", "lodka"), data_wodowania DATE, max_ladownosc INTEGER UNSIGNED);  
+
+
+
+INSERT INTO statek VALUES (1, "Wlodzimierz", "lodka", "2020-10-10", 2300);
+INSERT INTO statek VALUES (2, "Bialy", "kajak", "2020-10-10", 1000);
+
+ALTER TABLE postac
+ADD funkcja VARCHAR(255);
+UPDATE postac SET funkcja ="kapitan" WHERE id_postaci = 1;
+FOREIGN KEY (id_postaci) REFERENCES statek(id_statku);
+
+ALTER TABLE postac ADD statek VARCHAR(40);
+UPDATE postac statek = 'Wlodzimierz' WHERE rodzaj = 'wiking';
+UPDATE postac statek = 'Wlodzimierz' WHERE rodzaj = 'ptak';
